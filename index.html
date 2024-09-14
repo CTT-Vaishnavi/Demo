@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #container{
+            background-color: brown;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: relative;
+        }
+        #dial{
+            border: 5px solid white;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <input oninput="updateTimer()" id="control" type="range" min="10" max="5000" value="2000">
+
+    <div id="container">
+        <div id="dial"></div>
+    </div>
+    <button onclick="startTimer()">START</button>
+    <button onclick="stopTimer()">END</button>
+    <script>
+        let timerDelay = 200;
+        let dialObj = document.getElementById("dial");
+        let controlObj = document.getElementById("control");
+        let angle = 0;
+        let timeObj = null;
+
+        function startTimer() {
+            timeObj = setInterval(() => {
+                angle += 15;
+                dialObj.style.transform = `rotate(${angle}deg)`;
+            }, timerDelay);
+        }
+
+        function stopTimer() {
+            clearInterval(timeObj);
+        }
+
+        function updateTimer() {
+            timerDelay = controlObj.value;
+            console.log("timerDelay", timerDelay);
+        }
+    </script>
+</body>
+</html>
